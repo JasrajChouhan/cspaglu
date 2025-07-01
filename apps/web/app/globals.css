@@ -15,7 +15,7 @@
   /* Typography */
   --font-body: "Inter", "sans-serif";
   --font-heading: "Satoshi", "sans-serif";
-  --color-primary: oklch(0.84 0.18 117.33);
+  --color-primary: oklch(0.7 0.1 356);
   --color-background: oklch(1 0 0);
   --color-foreground: oklch(0.2 0 0);
   --color-muted: oklch(0.93 0.01 280);
@@ -27,8 +27,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-primary: oklch(0.84 0.18 117.33);
-    --color-background: oklch(1 , 0.1 , 0);
+    --color-primary: oklch(0.7 0.1 356);
+    --color-background: oklch(0.1632 0.0049 356);
     --color-foreground: oklch(1 0 0);
     --color-muted: oklch(0.2 0.01 280);
   }

@@ -1,0 +1,49 @@
+import { Button } from "@cspaglu/ui/components/ui/button";
+import { Input } from "@cspaglu/ui/components/ui/input";
+import { ArrowRight } from "lucide-react";
+import Spark from "./spark";
+
+export default function HeroSection() {
+  return (
+    <section className="container space-y-8 pb-12 pt-10 md:pb-20 md:pt-16 lg:py-18 border border-t-0">
+      <div className="mx-auto flex justify-center">
+        <Spark />
+      </div>
+
+      <div className="mx-auto flex max-w-4xl flex-col items-center text-center space-y-6">
+        <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
+          <span className="text-primary">Master</span>{" "}
+          <span className="text-foreground">Computer Science</span> with{" "}
+          <span className="underline decoration-primary underline-offset-4">
+            Free, Interactive
+          </span>{" "}
+          Courses
+        </h1>
+
+        <p className="max-w-2xl text-base sm:text-lg md:text-xl text-muted-foreground">
+          Build your foundations in{" "}
+          <span className="font-semibold text-foreground">Data Structures</span>
+          , <span className="font-semibold text-foreground">Algorithms</span>,
+          and{" "}
+          <span className="font-semibold text-foreground">Problem Solving</span>{" "}
+          all in one place, at your pace, and 100% free.
+        </p>
+
+        {/* TODO: Waitlist form */}
+        <div className="w-[80%] max-w-md flex flex-col sm:flex-row items-center gap-3">
+          <Input
+            placeholder="you@example.com"
+            type="email"
+            className="w-full"
+          />
+          <Button asChild size="lg" className="w-full sm:w-auto cursor-pointer">
+            <div>
+              <span>Join Waitlist </span>
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </div>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}

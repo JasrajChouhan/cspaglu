@@ -8,7 +8,7 @@ export default function HomeLayout({
   return (
     <div className="relative flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 container mx-auto">{children}</main>
     </div>
   );
 }
