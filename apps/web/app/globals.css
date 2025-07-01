@@ -2,26 +2,34 @@
 @import "@cspaglu/tailwind-config";
 @import "@cspaglu/ui/styles.css";
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+
+/* Base Theme */
+@theme {
+  --font-display: "Satoshi", "sans-serif";
+  --breakpoint-3xl: 120rem;
+
+  /* Typography */
+  --font-body: "Inter", "sans-serif";
+  --font-heading: "Satoshi", "sans-serif";
+  --color-primary: oklch(0.84 0.18 117.33);
+  --color-background: oklch(1 0 0);
+  --color-foreground: oklch(0.2 0 0);
+  --color-muted: oklch(0.93 0.01 280);
+
+  /* Easing */
+  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --color-primary: oklch(0.84 0.18 117.33);
+    --color-background: oklch(1 , 0.1 , 0);
+    --color-foreground: oklch(1 0 0);
+    --color-muted: oklch(0.2 0.01 280);
   }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
