@@ -24,6 +24,10 @@ app.get("/ping", (_req, res: Response) => {
   });
 });
 
+import apiRoute from "./routes/api.route";
+
+app.use("/api", apiRoute);
+
 // 404 handler
 // Global error handler
 
