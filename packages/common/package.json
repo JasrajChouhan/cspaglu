@@ -1,0 +1,26 @@
+{
+	"name": "@cspaglu/common",
+	"version": "1.0.0",
+	"description": "Shared types and schemas for CSPAGLU apps",
+	"private": true,
+	"main": "dist/def.js",
+	"types": "dist/def.d.ts",
+	"exports": {
+		"./types": "./dist/types.js",
+		".": "./dist/def.js",
+		"./def": "./dist/def.js"
+	},
+	"scripts": {
+		"build": "tsc"
+	},
+	"keywords": [],
+	"author": "Jasraj Chouhan",
+	"license": "ISC",
+	"dependencies": {
+		"ts-node": "^10.9.2",
+		"zod": "^3.25.67"
+	},
+	"devDependencies": {
+		"@cspaglu/typescript-config": "workspace:*"
+	}
+}

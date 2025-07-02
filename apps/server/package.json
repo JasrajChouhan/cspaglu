@@ -1,0 +1,38 @@
+{
+	"name": "server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "dist/server.js",
+	"scripts": {
+		"build": "tsc",
+		"dev": "node dist/server.js"
+	},
+	"keywords": [],
+	"author": "Jasraj Chouhan",
+	"license": "ISC",
+	"dependencies": {
+		"@cspaglu/common": "workspace:*",
+		"@cspaglu/typescript-config": "workspace:*",
+		"@types/express": "^5.0.3",
+		"cookie-parser": "^1.4.7",
+		"cors": "^2.8.5",
+		"dotenv": "^17.0.1",
+		"drizzle-orm": "^0.44.2",
+		"express": "^5.1.0",
+		"ip": "^2.0.1",
+		"morgan": "^1.10.0",
+		"pg": "^8.16.3",
+		"postgres": "^3.4.7"
+	},
+	"devDependencies": {
+		"@types/cookie-parser": "^1.4.9",
+		"@types/cors": "^2.8.19",
+		"@types/ip": "^1.1.3",
+		"@types/morgan": "^1.9.10",
+		"@types/node": "^22.15.30",
+		"@types/pg": "^8.15.4",
+		"drizzle-kit": "^0.31.4",
+		"ts-node": "^10.9.2",
+		"tsx": "^4.20.3"
+	}
+}

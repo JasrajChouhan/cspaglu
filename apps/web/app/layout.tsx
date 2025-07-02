@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Provider from "../provider/theme-provider";
+import { Toaster } from "sonner";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -19,6 +20,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning={true}>
       <body className={font.className}>
         <Provider>{children}</Provider>
+        <Toaster />
       </body>
     </html>
   );
