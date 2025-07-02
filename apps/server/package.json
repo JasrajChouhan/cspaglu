@@ -11,8 +11,8 @@
 	"author": "Jasraj Chouhan",
 	"license": "ISC",
 	"dependencies": {
-		"@cspaglu/typescript-config": "workspace:*",
 		"@cspaglu/common": "workspace:*",
+		"@cspaglu/typescript-config": "workspace:*",
 		"@types/express": "^5.0.3",
 		"cookie-parser": "^1.4.7",
 		"cors": "^2.8.5",

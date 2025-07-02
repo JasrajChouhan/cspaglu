@@ -8,6 +8,13 @@
       "when": 1751406455504,
       "tag": "0000_safe_mandarin",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1751440592153,
+      "tag": "0001_talented_major_mapleleaf",
+      "breakpoints": true
     }
   ]
 }
