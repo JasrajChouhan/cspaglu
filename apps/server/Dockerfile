@@ -2,14 +2,20 @@ FROM node:20
 
 WORKDIR /app
 
-COPY ./package.json ./package.json
+# Install pnpm globally
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
-RUN pnpm i
-
+# Copy the entire monorepo into the image
 COPY . .
 
-RUN pnpm build
+RUN pnpm install
+
+# Build only the server app
+RUN pnpm --filter ./apps/server build
+
+# Set working dir to server
+WORKDIR /app/apps/server
 
 EXPOSE 8081
 
-CMD ["pnpm", "run" , "dev"]
+CMD ["pnpm", "run", "dev"]
