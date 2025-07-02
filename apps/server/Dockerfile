@@ -11,7 +11,7 @@ COPY . .
 RUN pnpm install
 
 # Build only the server app
-RUN pnpm --filter ./apps/server build
+RUN pnpm build
 
 # Set working dir to server
 WORKDIR /app/apps/server
