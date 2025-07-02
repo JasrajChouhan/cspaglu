@@ -2,6 +2,7 @@ import { Button } from "@cspaglu/ui/components/ui/button";
 import { Input } from "@cspaglu/ui/components/ui/input";
 import { ArrowRight } from "lucide-react";
 import Spark from "./spark";
+import JoinWaitList from "components/form/waitlist";
 
 export default function HeroSection() {
   return (
@@ -30,19 +31,9 @@ export default function HeroSection() {
         </p>
 
         {/* TODO: Waitlist form */}
-        <div className="w-[80%] max-w-md flex flex-col sm:flex-row items-center gap-3">
-          <Input
-            placeholder="you@example.com"
-            type="email"
-            className="w-full"
-          />
-          <Button asChild size="lg" className="w-full sm:w-auto cursor-pointer">
-            <div>
-              <span>Join Waitlist </span>
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </div>
-          </Button>
-        </div>
+        {/* <div className='w-[80%] max-w-md flex flex-col sm:flex-row items-center gap-3'> */}
+        <JoinWaitList />
+        {/* </div> */}
       </div>
     </section>
   );
