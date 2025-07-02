@@ -1,23 +1,18 @@
-version: '1.0'
+version: '3.8'
 
 services:
-  postgres:
-    image: postgres:17
-    container_name: cspaglu-db
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: cspaglu-db
+  backend:
+    build:
+      context: ./apps/server
+    container_name: cspaglu-server
+    restart: always
     ports:
-      - "5134:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - '3001:3000'
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: ${DATABASE_URL}
     networks:
       - cspaglu-network
-
-volumes:
-  postgres_data:
 
 networks:
   cspaglu-network:
