@@ -34,7 +34,7 @@ export const socialMediaDataOfCreator = [
   {
     icon: <Trees />,
     text: "Linktree",
-    href: "https://linktr.ee/JasrajChouhan",
+    href: "https://linktr.ee/isjasrajchouhan",
   },
   {
     icon: <Coffee />,
