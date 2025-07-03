@@ -28,7 +28,7 @@ COPY packages packages
 ENV NODE_ENV=production
 
 # Build the web app only
-RUN pnpm --filter web build
+RUN pnpm run build --filter=web
 
 EXPOSE 3000
 
