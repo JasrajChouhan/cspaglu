@@ -12,7 +12,7 @@ import MobileSidebar from "components/navbar/mobile-sidebar";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-zinc-200 dark:border-zinc-800  backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full  dark:border-b border-dashed  border-b-2 dark:border-zinc-800  backdrop-blur-md">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <Link href="/" className="shrink-0">
           <Logo height={64} width={64} />

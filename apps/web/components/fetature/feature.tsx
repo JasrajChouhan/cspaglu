@@ -5,7 +5,7 @@ export default function Features() {
   return (
     <div
       id="features"
-      className="container mx-auto px-4 space-y-6 py-10 md:py-14 lg:py-24 overflow-x-hidden bg-pink-50/10 dark:bg-black/10"
+      className="container mx-auto px-4 space-y-6 py-10 md:py-14 lg:py-24 overflow-x-hidden bg-pink-50/10 dark:bg-black/10 dark:border-x dark:border-b border-dashed border-x-2 border-b-2"
     >
       <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
         <h2 className="font-heading text-3xl sm:text-4xl md:text-6xl font-bold">
@@ -17,7 +17,7 @@ export default function Features() {
         </p>
       </div>
 
-      <div className="mx-auto grid grid-cols-1 sm:grid-cols-2  gap-6 max-w-[64rem] w-full">
+      <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-[64rem] w-full">
         {featureData.map((feature) => (
           <FeatureCard key={feature.title} cardData={feature} />
         ))}
