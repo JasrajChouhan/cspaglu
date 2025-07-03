@@ -1,9 +1,38 @@
 FROM node:20
+
 WORKDIR /app
-RUN corepack enable && corepack prepare pnpm@latest --activate
-COPY . .
-RUN pnpm install
-RUN pnpm build
-WORKDIR /app/apps/web
+
+# Install pnpm globally once
+RUN npm install -g pnpm
+
+# === Copy only what's needed to install dependencies ===
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+
+# Copy app's package.json only
+COPY apps/web/package.json apps/web/package.json
+
+# Copy packages used by web (if any)
+COPY packages packages
+
+# Install dependencies with workspace support
+RUN pnpm install --frozen-lockfile
+
+# === Copy only what's needed to build the frontend ===
+COPY apps/web apps/web
+
+# Copy shared code used by web (if any)
+COPY apps apps
+COPY packages packages
+
+# Set environment before build
+ENV NODE_ENV=production
+
+# Copy .env.production used at build time
+COPY apps/web/.env.production /app/apps/web/.env.production
+
+# Build the web app only
+RUN pnpm --filter web build
+
 EXPOSE 3000
-CMD ["pnpm", "run", "start"]
+
+CMD ["pnpm", "--filter", "web", "start"]

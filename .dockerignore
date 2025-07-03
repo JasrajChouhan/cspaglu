@@ -1,5 +1,7 @@
-node_modules/
-dist/
-.turbo
-
-.env
+node_modules
+dist
+.next
+.git
+.vscode
+*.log
+.env.local
