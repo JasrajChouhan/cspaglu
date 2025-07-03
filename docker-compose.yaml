@@ -12,7 +12,7 @@ services:
       NODE_ENV: production
       DATABASE_URL: ${DATABASE_URL}
     env_file:
-      - .env.production
+      - apps/server/.env.production
     networks:
       - cspaglu-network
 
@@ -26,7 +26,7 @@ services:
     environment:
       NODE_ENV: production
     env_file:
-      - .env.production
+      - apps/web/.env.production
     networks:
       - cspaglu-network
 

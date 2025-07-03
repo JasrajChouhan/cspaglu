@@ -27,9 +27,6 @@ COPY packages packages
 # Set environment before build
 ENV NODE_ENV=production
 
-# Copy .env.production used at build time
-COPY apps/web/.env.production /app/apps/web/.env.production
-
 # Build the web app only
 RUN pnpm --filter web build
 
