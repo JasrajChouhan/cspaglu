@@ -11,6 +11,9 @@ importers:
       sonner:
         specifier: ^2.0.5
         version: 2.0.5(react-dom@19.1.0)(react@19.1.0)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
     devDependencies:
       prettier:
         specifier: ^3.6.0
