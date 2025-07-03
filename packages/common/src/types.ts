@@ -7,7 +7,6 @@ export const EarlyAccessSchema = z.object({
   ),
 });
 
-
 export const CreateCourseSchema = z.object({
   title: z
     .string()
@@ -29,4 +28,3 @@ export const CreateCourseSchema = z.object({
     .url({ message: "Thumbnail must be a valid URL." })
     .optional(),
 });
-
