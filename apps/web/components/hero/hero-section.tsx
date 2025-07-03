@@ -1,12 +1,9 @@
-import { Button } from "@cspaglu/ui/components/ui/button";
-import { Input } from "@cspaglu/ui/components/ui/input";
-import { ArrowRight } from "lucide-react";
 import Spark from "./spark";
 import JoinWaitList from "components/form/waitlist";
 
 export default function HeroSection() {
   return (
-    <section className="container space-y-8 pb-12 pt-10 md:pb-20 md:pt-16 lg:py-18 border border-t-0">
+    <section className="container space-y-8 pb-12 pt-10 md:pb-20 md:pt-16 lg:py-18 dark:border-x dark:border-b border-dashed border-x-2 border-b-2">
       <div className="mx-auto flex justify-center">
         <Spark />
       </div>
