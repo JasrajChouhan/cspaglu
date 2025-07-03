@@ -28,3 +28,25 @@ export const CreateCourseSchema = z.object({
     .url({ message: "Thumbnail must be a valid URL." })
     .optional(),
 });
+
+export const UpdateCourseSchema = z.object({
+  identifier: z
+    .object({
+      id: z.number().optional(),
+      title: z.string().optional(),
+      slug: z.string().optional(),
+    })
+    .refine((val) => val.id || val.title || val.slug, {
+      message: "At least one identifier (id, title, or slug) must be provided.",
+    }),
+  data: z
+    .object({
+      title: z.string().min(10).max(100).optional(),
+      description: z.string().max(300).optional(),
+      slug: z.string().min(5).max(20).optional(),
+      thumbnailUrl: z.string().optional(),
+    })
+    .refine((val) => Object.keys(val).length > 0, {
+      message: "At least one field to update must be provided.",
+    }),
+});
