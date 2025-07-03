@@ -1,24 +1,27 @@
 {
-  "name": "cspaglu",
-  "private": true,
-  "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "check-types": "turbo run check-types",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
-  },
-  "devDependencies": {
-    "prettier": "^3.6.0",
-    "prettier-plugin-tailwindcss": "^0.6.11",
-    "turbo": "^2.5.4"
-  },
-  "packageManager": "pnpm@8.15.6",
-  "engines": {
-    "node": ">=18"
-  },
-  "dependencies": {
-    "typescript": "^5.8.2",
-    "sonner": "^2.0.5"
-  }
+	"name": "cspaglu",
+	"private": true,
+	"scripts": {
+		"build": "turbo run build",
+		"dev": "turbo run dev",
+		"lint": "turbo run lint",
+		"check-types": "turbo run check-types",
+		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
+		"db:generate": "cd apps/server && npx drizzle-kit generate",
+		"db:migrate": "cd apps/server && npx drizzle-kit migrate",
+		"db:push": "cd apps/server && npx drizzle-kit push"
+	},
+	"devDependencies": {
+		"prettier": "^3.6.0",
+		"prettier-plugin-tailwindcss": "^0.6.11",
+		"turbo": "^2.5.4"
+	},
+	"packageManager": "pnpm@8.15.6",
+	"engines": {
+		"node": ">=18"
+	},
+	"dependencies": {
+		"typescript": "^5.8.2",
+		"sonner": "^2.0.5"
+	}
 }
