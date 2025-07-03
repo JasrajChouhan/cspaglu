@@ -18,7 +18,6 @@ if (!process.env.DATABASE_URL) {
   throw new Error(`DATABASE_URL not set in "${envFile}".`);
 }
 
-
 export default {
   schema: "./src/db/schema.ts",
   dialect: "postgresql",
