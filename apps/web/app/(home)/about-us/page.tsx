@@ -8,7 +8,6 @@ export default function AboutUs() {
       <HeroSectionAboutUs />
       <Creator />
       <CTA />
-
     </div>
   );
 }
