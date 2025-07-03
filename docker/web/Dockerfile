@@ -6,7 +6,7 @@ WORKDIR /app
 RUN npm install -g pnpm
 
 # === Copy only what's needed to install dependencies ===
-COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+COPY turbo.json pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 
 # Copy app's package.json only
 COPY apps/web/package.json apps/web/package.json

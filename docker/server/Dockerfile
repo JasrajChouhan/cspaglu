@@ -6,7 +6,7 @@ WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # === Copy minimal required files for dependency install ===
-COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+COPY turbo.json pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 
 # Copy only server package manifest
 COPY apps/server/package.json apps/server/package.json
@@ -24,7 +24,7 @@ COPY apps/server apps/server
 COPY apps apps
 
 # Build only the server app
-RUN pnpm --filter server build
+RUN pnpm run build --filter=server
 
 # Set working dir to server
 WORKDIR /app/apps/server
