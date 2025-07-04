@@ -51,3 +51,8 @@ export const deletedCourses = createTable("deleted_courses", {
   updatedAt: timestamp("updated_at", { withTimezone: true }),
   deletedAt: timestamp("deleted_at", { withTimezone: true }).notNull(),
 });
+
+export const featureFlags = createTable("feature_flags", {
+  key: text("key").primaryKey(),
+  value: boolean("value").notNull().default(false),
+});
