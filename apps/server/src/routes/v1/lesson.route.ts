@@ -4,6 +4,7 @@ import {
   CreateLesson,
   GetAllLessonsForCourse,
   GetLessonById,
+  UpdateLesson,
 } from "../../controller";
 import { CreateLessonSchema, UpdateLessonSchema } from "@cspaglu/common/types";
 
@@ -14,20 +15,10 @@ router.use(validateCourseId);
 router.post("/", validateReqBody(CreateLessonSchema), CreateLesson);
 router.get("/", GetAllLessonsForCourse);
 router.get("/:lessonId", GetLessonById);
-// router.put(
-//   "/:lessonId",
-//   validateReqBody(UpdateLessonSchema),
-//   UpdateLesson
-// );
+router.put("/:lessonId", validateReqBody(UpdateLessonSchema), UpdateLesson);
 
 /*
 * Todo: Lesson api end point
-
-* router.put(
-  "/:lessonId",
-  validateReqBody(UpdateLessonSchema),
-  UpdateLesson
-);
 * router.delete("/:lessonId", DeleteLesson);
 * router.patch(
   "/reorder",

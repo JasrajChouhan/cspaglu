@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { db } from "../utils/db";
 import { lesseons } from "../db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { uploadMarkdownToS3 } from "../utils/uploadMarkdownToS3";
 import slugify from "slugify";
 
@@ -174,13 +174,96 @@ export const GetLessonById = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: "Fetched lesson",
-      data: lesson
+      data: lesson,
     });
   } catch (error) {
     console.error("Error while fetching lesson:", error);
     res.status(500).json({
       success: false,
       message: "Internal server error while fetching lesson.",
+    });
+  }
+};
+
+export const UpdateLesson = async (req: Request, res: Response) => {
+  try {
+    const { courseId, lessonId } = req.params;
+    const { title, orderIndex, videoUrl, contentMd } = req.body;
+
+    // Ensure both IDs are present
+    if (!courseId || !lessonId) {
+      res.status(400).json({
+        success: false,
+        message: "Both courseId and lessonId are required in the URL.",
+      });
+      return;
+    }
+
+    // Fetch the lesson
+    const existingLesson = await db.query.lesseons.findFirst({
+      where: (fields) =>
+        and(eq(fields.id, lessonId), eq(fields.courseId, courseId)),
+    });
+
+    if (!existingLesson) {
+      res.status(404).json({
+        success: false,
+        message: "Lesson not found for this course.",
+      });
+    }
+
+    let newContentMdUrl = existingLesson?.contentMd;
+
+    // If new markdown is provided, upload to S3
+    if (contentMd) {
+      const course = (req as any).course;
+      const courseSlug = course.slug || "course";
+      const lessonSlug = slugify(title || existingLesson?.title, {
+        lower: true,
+        strict: true,
+      });
+
+      const s3Url = await uploadMarkdownToS3(contentMd, courseSlug, lessonSlug);
+
+      if (typeof s3Url === "string") {
+        newContentMdUrl = s3Url;
+      } else {
+        res.status(500).json({
+          success: false,
+          message: "Failed to upload markdown to S3.",
+        });
+      }
+    }
+
+    // Prepare update data
+    const updateData = {
+      ...(title && { title }),
+      ...(orderIndex && { orderIndex }),
+      ...(videoUrl && { videoUrl }),
+      ...(contentMd && { contentMd: newContentMdUrl }),
+      updatedAt: new Date(),
+    };
+
+    // Execute update
+    await db
+      .update(lesseons)
+      .set(updateData)
+      .where(and(eq(lesseons.id, lessonId), eq(lesseons.courseId, courseId)));
+
+    res.status(200).json({
+      success: true,
+      message: "Lesson updated successfully.",
+      data: {
+        ...existingLesson,
+        ...updateData,
+        contentMd: newContentMdUrl,
+      },
+    });
+  } catch (error) {
+    console.error("UpdateLesson Error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong while updating the lesson.",
     });
   }
 };
