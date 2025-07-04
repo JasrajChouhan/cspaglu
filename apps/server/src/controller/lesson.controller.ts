@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { db } from "../utils/db";
 import { lesseons } from "../db/schema";
-import { and, eq } from "drizzle-orm";
+import { and, asc, eq, inArray } from "drizzle-orm";
 import { uploadMarkdownToS3 } from "../utils/uploadMarkdownToS3";
 import slugify from "slugify";
 
@@ -304,6 +304,95 @@ export const DeleteLesson = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: "Something went wrong while deleting the lesson.",
+    });
+  }
+};
+
+export const ReorderLessons = async (req: Request, res: Response) => {
+  try {
+    const { lessonOrder } = req.body;
+    const { courseId } = req.params;
+
+    interface LessonOrderType {
+      orderIndex: number;
+      lessonId: string;
+    }
+
+    // We are ensure unique orderIndex in incoming payload
+    const orderIndexes = lessonOrder.map(
+      (item: LessonOrderType) => item.orderIndex,
+    );
+    const hasDuplicates = new Set(orderIndexes).size !== orderIndexes.length;
+    if (hasDuplicates) {
+      res.status(400).json({
+        success: false,
+        message: "Each lesson must have a unique orderIndex.",
+      });
+    }
+
+    const lessonIds = lessonOrder.map((l: LessonOrderType) => l.lessonId);
+    const lessonsInDb = await db
+      .select({ id: lesseons.id })
+      .from(lesseons)
+      .where(
+        and(
+          inArray(lesseons.id, lessonIds),
+          eq(lesseons.courseId, courseId as string),
+        ),
+      );
+
+    if (lessonsInDb.length !== lessonOrder.length) {
+      res.status(404).json({
+        success: false,
+        message: "Some lessons were not found or do not belong to this course.",
+      });
+    }
+
+    // Temporarily reset conflicting order indexes to avoid collision
+    await db
+      .update(lesseons)
+      .set({ orderIndex: -1 }) // safe temporary value
+      .where(
+        and(
+          inArray(lesseons.id, lessonIds),
+          eq(lesseons.courseId, courseId as string),
+        ),
+      );
+
+    // Reassign new order indexes
+    for (const lesson of lessonOrder) {
+      await db
+        .update(lesseons)
+        .set({ orderIndex: lesson.orderIndex, updatedAt: new Date() })
+        .where(
+          and(
+            eq(lesseons.id, lesson.lessonId),
+            eq(lesseons.courseId, courseId as string),
+          ),
+        );
+    }
+
+    // Return updated list
+    const updatedLessons = await db
+      .select({
+        id: lesseons.id,
+        title: lesseons.title,
+        orderIndex: lesseons.orderIndex,
+      })
+      .from(lesseons)
+      .where(eq(lesseons.courseId, courseId as string))
+      .orderBy(asc(lesseons.orderIndex));
+
+    res.status(200).json({
+      success: true,
+      message: "Lessons reordered successfully.",
+      data: updatedLessons,
+    });
+  } catch (error) {
+    console.error("Error in ReorderLessons:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error.",
     });
   }
 };
