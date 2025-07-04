@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
-import { createDb } from "../db";
 import { eq, or, SQL } from "drizzle-orm";
 import { courses } from "../db/schema";
-
-const { db } = createDb(process.env.DATABASE_URL!);
+import { db } from "../utils/db";
 
 export const CreateCourse = async (req: Request, res: Response) => {
   try {

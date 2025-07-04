@@ -1,10 +1,9 @@
-import { type Config } from "drizzle-kit";
-
 import * as path from "path";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
+import { createDb } from "../db";
 
-const basePath = path.resolve(__dirname, "..");
+const basePath = path.resolve(__dirname, "../..");
 let envFile = `.env.${process.env.NODE_ENV || "local"}`;
 let envPath = path.join(basePath, envFile);
 
@@ -19,12 +18,6 @@ if (!fs.existsSync(envPath)) {
 
 dotenv.config({ path: envPath });
 
-export default {
-  schema: "./src/db/schema.ts",
-  dialect: "postgresql",
-  dbCredentials: {
-    url: "postgresql://postgres:root@localhost:5432/cspaglu-db",
-  },
-  out: "./src/db/migrations",
-  tablesFilter: ["cspaglu_*"],
-} satisfies Config;
+console.log(process.env.DATABASE_URL);
+
+export const { db } = createDb(process.env.DATABASE_URL!);
