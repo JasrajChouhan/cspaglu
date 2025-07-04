@@ -1,7 +1,7 @@
 // apps/server/scripts/seed.ts
 
 import { db } from "../utils/db";
-import { featureFlags} from '../db/schema';
+import { featureFlags } from "../db/schema";
 
 async function seed() {
   try {
@@ -14,7 +14,7 @@ async function seed() {
     console.log("Seed completed.");
   } catch (error) {
     console.error("Seed failed:", error);
-  }finally {
+  } finally {
     process.exit(1);
   }
 }
