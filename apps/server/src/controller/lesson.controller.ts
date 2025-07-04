@@ -267,3 +267,43 @@ export const UpdateLesson = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const DeleteLesson = async (req: Request, res: Response) => {
+  try {
+    const { lessonId } = req.params;
+    if (!lessonId) {
+      res.status(400).json({
+        success: false,
+        message: "LessonId is required in the URL.",
+      });
+      return;
+    }
+
+    // Delete the lesson
+    const lesson = await db.query.lesseons.findFirst({
+      where: (fields) => eq(fields.id, lessonId),
+    });
+
+    if (!lesson) {
+      res.status(400).json({
+        success: false,
+        message: "This lesson not available.",
+      });
+      return;
+    }
+
+    //otherwise delete the lesson
+    await db.delete(lesseons).where(eq(lesseons.id, lessonId));
+
+    res.status(200).json({
+      success: true,
+      message: "This lesson is deleted",
+    });
+  } catch (error) {
+    console.error("Delete Lesson Error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong while deleting the lesson.",
+    });
+  }
+};
