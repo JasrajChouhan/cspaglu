@@ -12,6 +12,7 @@ export const validateReqBody =
       res.status(400).json({
         success: false,
         errorMessage,
+        details: result.error.errors,
       });
       return;
     }

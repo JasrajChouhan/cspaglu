@@ -1,9 +1,7 @@
 import { Request, Response, Router } from "express";
-import { createDb } from "../db";
 import { earlyAccess } from "../db/schema";
 import { eq } from "drizzle-orm";
-
-const { db } = createDb(process.env.DATABASE_URL!);
+import { db } from "../utils/db";
 
 export const JoinWaitList = async (
   req: Request,
