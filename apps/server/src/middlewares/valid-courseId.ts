@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import { db } from "../utils/db";
-import { courses } from "../db/schema";
 import { eq } from "drizzle-orm";
 
 export const validateCourseId = async (
