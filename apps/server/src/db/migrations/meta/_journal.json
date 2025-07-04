@@ -15,6 +15,13 @@
       "when": 1751606678338,
       "tag": "0001_fresh_rachel_grey",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1751652460140,
+      "tag": "0002_plain_shadowcat",
+      "breakpoints": true
     }
   ]
 }
