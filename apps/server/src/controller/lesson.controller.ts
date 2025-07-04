@@ -144,3 +144,43 @@ export const GetAllLessonsForCourse = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const GetLessonById = async (req: Request, res: Response) => {
+  try {
+    const course = (req as any).course;
+    const courseId = course?.id;
+
+    const { lessonId } = req.params;
+    if (!lessonId) {
+      res.status(400).json({
+        success: false,
+        message: "Lessonid is missing in url",
+      });
+      return;
+    }
+
+    const lesson = await db.query.lesseons.findFirst({
+      where: (fields) => eq(fields.id, lessonId),
+    });
+
+    if (!lesseons) {
+      res.status(400).json({
+        success: false,
+        message: "Lesson is not available",
+      });
+      return;
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Fetched lesson",
+      data: lesson
+    });
+  } catch (error) {
+    console.error("Error while fetching lesson:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error while fetching lesson.",
+    });
+  }
+};
