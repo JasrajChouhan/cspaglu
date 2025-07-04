@@ -1,5 +1,3 @@
-// apps/server/scripts/seed.ts
-
 import { db } from "../utils/db";
 import { featureFlags } from "../db/schema";
 
