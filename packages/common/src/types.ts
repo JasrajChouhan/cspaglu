@@ -50,3 +50,43 @@ export const UpdateCourseSchema = z.object({
       message: "At least one field to update must be provided.",
     }),
 });
+
+export const CreateLessonSchema = z.object({
+  title: z
+    .string()
+    .min(10, { message: "Title must be at least 10 characters long." })
+    .max(100, { message: "Title cannot exceed 100 characters." }),
+
+  orderIndex: z
+    .number()
+    .min(1, { message: "Order index must be greater than 0." }),
+
+  videoUrl: z.string().url("Invalid video URL").optional(),
+
+  contentMd: z.string().min(1, { message: "Markdown content is required." }),
+});
+
+export const UpdateLessonSchema = z
+  .object({
+    title: z.string().min(10).max(100).optional(),
+
+    orderIndex: z.number().min(1).optional(),
+
+    videoUrl: z.string().url().optional(),
+
+    contentMd: z.string().optional(),
+  })
+  .refine((data) => Object.keys(data).length > 0, {
+    message: "At least one field must be provided to update.",
+  });
+
+export const ReorderLessonsSchema = z.object({
+  lessonOrder: z
+    .array(
+      z.object({
+        lessonId: z.string().uuid(),
+        orderIndex: z.number().min(1),
+      }),
+    )
+    .min(1, { message: "At least one lesson must be reordered." }),
+});
