@@ -90,3 +90,57 @@ export const CreateLesson = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const GetAllLessonsForCourse = async (req: Request, res: Response) => {
+  try {
+    const { courseId } = req.params;
+
+    if (!courseId) {
+      res.status(400).json({
+        success: false,
+        message: "Missing courseId in the URL.",
+      });
+
+      return;
+    }
+
+    const course = await db.query.courses.findFirst({
+      where: (field) => eq(field.id, courseId),
+    });
+
+    if (!course) {
+      res.status(404).json({
+        success: false,
+        message: `Course with id '${courseId}' not found.`,
+      });
+
+      return;
+    }
+
+    // find all lessons
+    const lessons = await db.query.lesseons.findMany({
+      where: (fields) => eq(fields.courseId, course.id),
+    });
+
+    if (!lessons) {
+      res.status(404).json({
+        success: false,
+        message: `This Course don't have any lessons.`,
+      });
+
+      return;
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Fetched all lessons",
+      data: lessons,
+    });
+  } catch (error) {
+    console.log("Error while fetching lessons", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
