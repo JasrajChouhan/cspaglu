@@ -1,2 +1,7 @@
 export { JoinWaitList } from "./join-waitlist.controller";
-export { CreateCourse, GetAllCourses, UpdateCourse } from "./course.controller";
+export {
+  CreateCourse,
+  GetAllCourses,
+  UpdateCourse,
+  GetCourseByIdOrSlug,
+} from "./course.controller";
