@@ -6,3 +6,5 @@ export {
   GetCourseByIdOrSlug,
   DeleteCourse,
 } from "./course.controller";
+
+export * from "./lesson.controller";
