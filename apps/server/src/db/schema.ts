@@ -40,3 +40,14 @@ export const lesseons = createTable("lessons", {
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").notNull(),
 });
+
+export const deletedCourses = createTable("deleted_courses", {
+  id: uuid("id").primaryKey(),
+  title: text("title").notNull(),
+  slug: text("slug").notNull(),
+  description: text("description"),
+  thumbnailUrl: text("thumbnail_url"),
+  createdAt: timestamp("created_at", { withTimezone: true }),
+  updatedAt: timestamp("updated_at", { withTimezone: true }),
+  deletedAt: timestamp("deleted_at", { withTimezone: true }).notNull(),
+});

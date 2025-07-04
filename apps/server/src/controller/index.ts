@@ -4,4 +4,5 @@ export {
   GetAllCourses,
   UpdateCourse,
   GetCourseByIdOrSlug,
+  DeleteCourse,
 } from "./course.controller";

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { eq, or, SQL } from "drizzle-orm";
-import { courses } from "../db/schema";
+import { courses, deletedCourses } from "../db/schema";
 import { db } from "../utils/db";
 import { isUUID } from "../utils/isUUID";
 
@@ -153,6 +153,56 @@ export const GetCourseByIdOrSlug = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("Error in GetCourseByIdOrSlug:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error.",
+    });
+  }
+};
+
+export const DeleteCourse = async (req: Request, res: Response) => {
+  try {
+    const { idOrSlug } = req.params;
+
+    if (!idOrSlug) {
+      res.status(400).json({
+        success: false,
+        message: "Course identifier is required in URL (id or slug).",
+      });
+      return;
+    }
+
+    const condition = isUUID(idOrSlug)
+      ? eq(courses.id, idOrSlug)
+      : eq(courses.slug, idOrSlug);
+
+    const course = await db.query.courses.findFirst({
+      where: condition,
+    });
+
+    if (!course) {
+      res.status(404).json({
+        success: false,
+        message: "Course not found.",
+      });
+      return;
+    }
+
+    // move whole course to deleted_course for backup
+    await db.insert(deletedCourses).values({
+      ...course,
+      deletedAt: new Date(),
+    });
+
+    // Delete course from main table
+    await db.delete(courses).where(condition);
+
+    res.status(200).json({
+      success: true,
+      message: "Course deleted and backed up for 14 days.",
+    });
+  } catch (error) {
+    console.error("DeleteCourse error:", error);
     res.status(500).json({
       success: false,
       message: "Internal server error.",

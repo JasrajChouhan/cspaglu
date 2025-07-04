@@ -4,7 +4,7 @@ import * as path from "path";
 import * as dotenv from "dotenv";
 import * as fs from "fs";
 
-const basePath = path.resolve(__dirname, "..");
+const basePath = path.resolve(__dirname);
 let envFile = `.env.${process.env.NODE_ENV || "local"}`;
 let envPath = path.join(basePath, envFile);
 
@@ -23,7 +23,7 @@ export default {
   schema: "./src/db/schema.ts",
   dialect: "postgresql",
   dbCredentials: {
-    url: "postgresql://postgres:root@localhost:5432/cspaglu-db",
+    url: process.env.DATABASE_URL!,
   },
   out: "./src/db/migrations",
   tablesFilter: ["cspaglu_*"],
