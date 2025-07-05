@@ -12,8 +12,8 @@ export const navbarItemsData: NavbarItemType[] = [
 ];
 
 export const PATH = {
-  "HOME": "/",
-  "PRICING": "/pricing",
+  HOME: "/",
+  PRICING: "/pricing",
   "ABOUS-US": "about-us",
-  "COURSES": "/courses",
+  COURSES: "/courses",
 };
