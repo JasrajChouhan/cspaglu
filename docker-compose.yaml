@@ -29,6 +29,19 @@ services:
       - apps/web/.env.production
     networks:
       - cspaglu-network
+  admin:
+    build:
+      context: .
+      dockerfile: docker/admin/Dockerfile
+    container_name: cspaglu-admin
+    ports:
+      - '3001:3001'
+    environment:
+      NODE_ENV: production
+    env_file:
+      - apps/admin/.env.production
+    networks:
+      - cspaglu-network
 
 networks:
   cspaglu-network:
