@@ -30,6 +30,6 @@ ENV NODE_ENV=production
 # Build the admin app only
 RUN pnpm run build --filter=admin
 
-EXPOSE 3000
+EXPOSE 3001
 
 CMD ["pnpm", "--filter", "admin", "start"]

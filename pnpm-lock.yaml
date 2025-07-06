@@ -49,6 +49,9 @@ importers:
       '@cspaglu/common':
         specifier: workspace:*
         version: link:../../packages/common
+      '@cspaglu/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
       '@cspaglu/tailwind-config':
         specifier: workspace:*
         version: link:../../packages/tailwind-config

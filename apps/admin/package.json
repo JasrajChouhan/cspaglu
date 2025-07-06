@@ -19,6 +19,7 @@
     "@cspaglu/common": "workspace:*",
     "@cspaglu/tailwind-config": "workspace:*",
     "@cspaglu/typescript-config": "workspace:*",
+    "@cspaglu/eslint-config": "workspace:*",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
