@@ -10,16 +10,17 @@
   },
   "dependencies": {
     "@cspaglu/ui": "workspace:*",
-    "cn": "^0.1.1",
+    "@hookform/resolvers": "^5.1.1",
     "next": "15.3.5",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.59.0"
   },
   "devDependencies": {
     "@cspaglu/common": "workspace:*",
+    "@cspaglu/eslint-config": "workspace:*",
     "@cspaglu/tailwind-config": "workspace:*",
     "@cspaglu/typescript-config": "workspace:*",
-    "@cspaglu/eslint-config": "workspace:*",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",

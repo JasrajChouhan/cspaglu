@@ -1,3 +1,5 @@
+"use client";
+
 export default function Page() {
-  return <div>Admin Course Page</div>;
+  return <div>hello /courses</div>;
 }

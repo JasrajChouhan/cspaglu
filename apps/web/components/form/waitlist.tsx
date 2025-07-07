@@ -14,13 +14,13 @@ import {
 import { ArrowRight } from "lucide-react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { ReactHookForm } from "@cspaglu/ui/lib/index";
 import { earlyAccessSchemaType } from "@cspaglu/common/def";
 import { EarlyAccessSchema } from "@cspaglu/common/types";
 import { formattedDate } from "utils";
 
 export default function JoinWaitList() {
-  const form = useForm<earlyAccessSchemaType>({
+  const form = ReactHookForm.useForm<earlyAccessSchemaType>({
     resolver: zodResolver(EarlyAccessSchema),
     defaultValues: {
       email: "",

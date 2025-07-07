@@ -9,7 +9,8 @@
 		"./types": "./dist/types.js",
 		".": "./dist/def.js",
 		"./def": "./dist/def.js",
-		"./lib": "./dist/lib.js"
+		"./lib": "./dist/lib.js",
+		"./utils/*": "./dist/uitls/index.js"
 	},
 	"scripts": {
 		"build": "tsc"
