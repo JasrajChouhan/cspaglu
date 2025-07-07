@@ -5,7 +5,7 @@ export const PATH = {
   COURSES: "/courses",
   LESSONS: "/lessons",
   DASHBOARD: "/",
-  "FEATURES-FLAG": "features-flag",
+  "FEATURES-FLAG": "/features-flag",
   USERS: "/users",
   SETTNGS: "/settings",
 };

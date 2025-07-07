@@ -2,46 +2,64 @@
 
 import { CreateCourseSchema } from "@cspaglu/common/types";
 import { CreateCourseSchemaType } from "@cspaglu/common/def";
-// import {formattedDate } from '@cspaglu/common/utils/index';
-
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReactHookForm } from "@cspaglu/ui/lib/index";
 
+import { ReactHookForm } from "@cspaglu/ui/lib/index";
 import { Button } from "@cspaglu/ui/components/ui/button";
 import { Textarea } from "@cspaglu/ui/components/ui/textarea";
 import { FormInput } from "components/ui/form-input";
 import { Form } from "@cspaglu/ui/components/ui/form";
 import { CreateCourse } from "actions";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function CreateNewCourse() {
   const { useForm } = ReactHookForm;
+
   const form = useForm<CreateCourseSchemaType>({
     resolver: zodResolver(CreateCourseSchema),
+    defaultValues: {
+      title: "",
+      slug: "",
+      description: "",
+      thumbnailUrl: "",
+    },
   });
 
-  async function onSubmit(values: CreateCourseSchemaType) {
-    console.log(values);
+  const {
+    handleSubmit,
+    formState: { isSubmitting },
+    reset,
+    control,
+  } = form;
+
+  const router = useRouter();
+
+  const onSubmit = async (values: CreateCourseSchemaType) => {
     try {
-      const data = await CreateCourse(values);
-      console.log(data);
-      toast.success("Successfully created the course!", {
-        // description: `Create at, ${formattedDate}`,
+      const course = await CreateCourse(values);
+      toast.success("Course created successfully", {
+        description: `Course "${values.title}" has been saved.`,
       });
-      form.reset();
-    } catch (error) {
-      console.error("Failed to join waitlist:", error);
-      toast.error("Something went wrong, please try again letter", {
-        // description : `Failed at, ${formattedDate}`
+
+      reset();
+      const redirectTo = `/courses/${course.id}-${course.slug}/edit`;
+      router.push(redirectTo);
+    } catch (error: any) {
+      console.error("Create course error:", error.message.message);
+      toast.error("Failed to create course", {
+        description:
+          JSON.parse(error.message).message ||
+          "Something went wrong. Please try again.",
       });
     }
-  }
+  };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <FormInput
-          control={form.control}
+          control={control}
           name="title"
           label="Course Title"
           placeholder="Introduction to SQL"
@@ -49,7 +67,7 @@ export default function CreateNewCourse() {
           required
         />
         <FormInput
-          control={form.control}
+          control={control}
           name="slug"
           label="Course Slug"
           placeholder="introduction-to-sql"
@@ -57,11 +75,12 @@ export default function CreateNewCourse() {
           required
         />
         <FormInput
-          control={form.control}
+          control={control}
           name="description"
           label="Course Description"
           placeholder="Briefly describe your course"
-          description="Optional, but helps learners understand the course."
+          description="Minimum 30 characters, maximum 300 characters."
+          required
           render={(field) => (
             <Textarea
               {...field}
@@ -71,14 +90,16 @@ export default function CreateNewCourse() {
           )}
         />
         <FormInput
-          control={form.control}
+          control={control}
           name="thumbnailUrl"
           label="Thumbnail URL"
           placeholder="https://example.com/thumbnail.jpg"
           description="URL to a thumbnail image (optional)."
         />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit"}
+        </Button>
       </form>
     </Form>
   );
