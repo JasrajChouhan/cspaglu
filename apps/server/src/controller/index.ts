@@ -8,3 +8,4 @@ export {
 } from "./course.controller";
 
 export * from "./lesson.controller";
+export * from "./feature-flag.controller";

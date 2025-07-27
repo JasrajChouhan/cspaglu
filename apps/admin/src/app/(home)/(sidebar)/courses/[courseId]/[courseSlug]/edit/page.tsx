@@ -1,6 +1,8 @@
 import { GetCourseById } from "actions";
 import { GetAllLessons } from "actions/lesson";
 import CouseSearchBar from "components/course/searchbar";
+import LessonDropDown from "components/lessons/lesson-dropdown";
+import React from "react";
 
 export default async function LessonPage({
   params,
@@ -27,7 +29,7 @@ export default async function LessonPage({
         </div>
       </div>
       {lessons.map((lesson: any) => (
-        <h1 key={lesson.id}>{lesson.title}</h1>
+        <LessonDropDown key={lesson.id} lesson={lesson} courseId={courseId} />
       ))}
     </div>
   );

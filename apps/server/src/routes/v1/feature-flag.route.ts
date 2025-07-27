@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { db } from "../../utils/db";
 import { featureFlags } from "../../db/schema";
+import { ToggleFeatureFlag } from "../../controller";
 
 const router: Router = Router();
 
@@ -14,5 +15,7 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: "Internal error" });
   }
 });
+
+router.put("/toggle/flag-status/:featureName", ToggleFeatureFlag);
 
 export default router;
