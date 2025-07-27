@@ -47,7 +47,7 @@ export default function LessonForm({
       await UpdateLesson(courseId, lesson.id, data);
       toast.success("Lesson updated");
       setEditMode(false);
-    } catch (err) {
+    } catch (err: any) {
       toast.error("Update failed", {
         description: err.message,
       });

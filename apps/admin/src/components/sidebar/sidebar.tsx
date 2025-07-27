@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SIDEBAR_ITEMS } from "constants/index";
 import { cn } from "@cspaglu/ui/lib/utils";
+import { ModeToggle } from "components/mode-toggle";
 
 export const Sidebar = () => {
   const pathname = usePathname();
@@ -26,6 +27,9 @@ export const Sidebar = () => {
           </Link>
         ))}
       </nav>
+
+      {/* Theme Toggle */}
+      <ModeToggle />
     </div>
   );
 };
