@@ -37,5 +37,5 @@ export async function ToggleFeatureFlag(featureName: string) {
   }
 
   const result = await resp.json();
-  return result.data;
+  return result;
 }

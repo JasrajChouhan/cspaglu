@@ -4,6 +4,7 @@ import React from "react";
 import { Switch } from "@cspaglu/ui/components/ui/switch";
 import { Label } from "@cspaglu/ui/components/ui/label";
 import { FetchFeaturesFlags, ToggleFeatureFlag } from "actions";
+import { toast } from "sonner";
 
 type FeatureFlags = {
   flags: Record<string, boolean>;
@@ -42,13 +43,18 @@ export default function Page() {
     }));
 
     try {
-      await ToggleFeatureFlag(key);
+      const res = await ToggleFeatureFlag(key);
+      console.log(res);
+      if (res.success) {
+        toast.success(`${key} is toggle`);
+      }
     } catch (err) {
       console.log("Failed to toggle feature flag", err);
       setFlags((prev) => ({
         ...prev,
         [key]: !prev[key],
       }));
+      toast.error(`${key} is not toggle`);
     }
   };
 
